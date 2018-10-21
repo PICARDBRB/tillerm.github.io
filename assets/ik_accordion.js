@@ -99,9 +99,13 @@
 				
 				if($btn[0] != $(event.currentTarget)[0]) { 
 					$btn.removeClass('expanded');
+					$btn.attr('aria-expanded','false');
+					$btn.parent('dt').next().attr('aria-hidden','true');
 					$hdr.next().slideUp(plugin.options.animationSpeed);
 				} else { 
 					$btn.addClass('expanded');
+					$btn.attr('aria-expanded','true');
+					$btn.parent('dt').next().attr('aria-hidden','false');
 					$hdr.next().slideDown(plugin.options.animationSpeed);
 				}
 			});
@@ -110,6 +114,13 @@
 		
 			isVisible = !!$panel.is(':visible');
 			$panel.slideToggle({ duration: plugin.options.animationSpeed });
+			if (isVisible) {
+       $me.attr('aria-expanded','false');
+       $me.parent('dt').next().attr('aria-hidden','true');
+    } else {
+       $me.attr('aria-expanded','true');
+       $me.parent('dt').next().attr('aria-hidden','false');
+    }
 			
 		}
 	};
